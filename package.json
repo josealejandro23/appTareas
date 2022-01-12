@@ -1,0 +1,19 @@
+{
+   "name": "tareas-pendientes",
+   "version": "0.0.1",
+   "description": "App de tareas pendientes y realizadas en nodejs por consola",
+   "main": "app.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "init": "node app.js"
+   },
+   "keywords": [
+      "nodejs",
+      "tareas"
+   ],
+   "author": "JVARGAS",
+   "license": "MIT",
+   "dependencies": {
+      "colors": "^1.4.0"
+   }
+}
