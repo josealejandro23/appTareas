@@ -15,7 +15,7 @@ const main = async () => {
 
    //*se cargan las tareas desde la base de datos de la app
    if(tareasDB)
-      tareas.fijarTareas(tareasDB);
+      tareas.cargarTareas(tareasDB);
    
    do {
       //se imprime el menú
@@ -28,7 +28,7 @@ const main = async () => {
             tareas.crearTarea(desc);
          break;
          case 2:
-            console.log(tareas.listaTareas);
+            tareas.listarTareas();
          break;
       }
 
