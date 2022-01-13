@@ -83,8 +83,82 @@ const imprimirMensaje = async (mensaje) => {
    return valor;
 };
 
+const listadoTareasBorrar = async (tareas = []) =>{
+   //--Se crea un arreglo con map, map genera un arreglo con un objeto por cada elemento en el arreglo original, en este caso tareas
+   const choices = tareas.map((tarea,i)=>{
+      const idx = `${i+1}.`.green;
+
+      //--se crea un objeto con la forma requerida por inquirer para mostrar las tareas y retornar el id de la tarea seleccionada
+      return{
+         value: tarea.id,
+         name: `${idx} ${tarea.descripcion}`
+      }
+   });
+
+   choices.unshift({
+      value:'0',
+      name:'0.'.green + 'Cancelar'
+   });
+
+   //--se crea el objeto pregunta y se le pasa el listado de opciones creadas en el paso anterior
+   const preguntas = [
+      {
+         type:'list',
+         name:'id',
+         message:'Borrar',
+         choices
+      }
+   ];
+   //-- se imprime la pregunta y se obtiene el resultado
+   const {id} = await inquirer.prompt(preguntas);
+   return id;
+}
+
+const confirmarAccion = async ( mensaje ) =>{
+   const question =[
+      {
+         type:'confirm',
+         name: 'bRes',
+         message:mensaje
+      }
+   ];
+
+   const {bRes} = await inquirer.prompt(question);
+   return bRes;
+}
+
+const listadoTareasCompletar = async (tareas = []) => {
+   //--Se crea un arreglo con map, map genera un arreglo con un objeto por cada elemento en el arreglo original, en este caso tareas
+   const choices = tareas.map((tarea, i) => {
+      const idx = `${i + 1}.`.green;
+
+      //--se crea un objeto con la forma requerida por inquirer para mostrar las tareas y retornar el id de la tarea seleccionada
+      return {
+         value: tarea.id,
+         name: `${idx} ${tarea.descripcion}`,
+         checked : tarea.finalizadaEn ? true : false
+      };
+   });
+
+   //--se crea el objeto pregunta y se le pasa el listado de opciones creadas en el paso anterior
+   const preguntas = [
+      {
+         type: "checkbox",
+         name: "ids",
+         message: "Seleccionar",
+         choices,
+      },
+   ];
+   //-- se imprime la pregunta y se obtiene el resultado
+   const { ids } = await inquirer.prompt(preguntas);
+   return ids;
+};
+
 module.exports = {
    inquirerMenu,
    inquirerPause,
    imprimirMensaje,
+   listadoTareasBorrar,
+   confirmarAccion,
+   listadoTareasCompletar,
 };

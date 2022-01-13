@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = './db/'
 const fileName = 'data.json'
 
-
 const writeData = (data) => {
    if(!fs.existsSync(path)){
       fs.mkdirSync(path);
