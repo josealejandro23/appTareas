@@ -15,7 +15,6 @@ const Tareas = require("./models/tareas");
 const main = async () => {
    console.clear();
    let opt = 0;
-
    let tareas = new Tareas();
    const tareasDB = readData();
 
@@ -27,25 +26,24 @@ const main = async () => {
       opt = await inquirerMenu();
 
       switch (opt) {
-         //crear tarea
-         case 1:
+         case 1: //crear tarea
             const desc = await imprimirMensaje("Descripción:");
             tareas.crearTarea(desc);
             break;
-         case 2:
+         case 2:  //ver todas las tareas
             tareas.mostrarTareas();
             break;
-         case 3:
+         case 3:  //Ver tareas compleatas
             tareas.listarTareasPorEstado(true);
             break;
-         case 4:
+         case 4: //ver tareas pendientes
             tareas.listarTareasPorEstado(false);
             break;
-         case 5:
+         case 5:  //completar tareas
             const ids = await listadoTareasCompletar(tareas.listaTareas);
             tareas.cambiarEstadoTareas(ids);
             break;
-         case 6:
+         case 6:  //borrar tareas
             //--se imprime la lista de tareas
             const id = await listadoTareasBorrar(tareas.listaTareas);
             //--si no se eligio cancelar se continúa con el borrado
@@ -58,10 +56,11 @@ const main = async () => {
                   console.log("Tarea borrada");
                }
             }
+            break;
       }
       //--se almacena la información en la base de datos
       writeData(tareas.listaTareas);
-      //--mientras no se elija la opción de salir se repite el menú
+      //--mientras no se elija la opción de salir se repite el menú, se llama la pausa para ver el resultado de cada operación
       if (opt !== 0) await inquirerPause();
    } while (opt !== 0);
 };
